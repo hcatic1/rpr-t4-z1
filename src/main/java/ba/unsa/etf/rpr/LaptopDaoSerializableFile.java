@@ -29,8 +29,8 @@ public class LaptopDaoSerializableFile implements LaptopDao{
 
     @Override
     public ArrayList<Laptop> napuniListu(ArrayList<Laptop> laptopi) {
-        this.laptopi.addAll(laptopi);
-        return laptopi; //ili treba vratiti this.laptopi
+        this.laptopi = new ArrayList<Laptop>(laptopi);
+        return this.laptopi; //ili treba vratiti this.laptopi
     }
 
     @Override
@@ -46,12 +46,12 @@ public class LaptopDaoSerializableFile implements LaptopDao{
     }
 
     @Override
-    public Laptop getLaptop(Integer id) {
+    public Laptop getLaptop(String procesor) {
         for(Laptop l: this.laptopi){
-            if(l.getId().equals(id)){
+            if(l.getProcesor().equals(procesor)){
                 return l;
             }
         }
-        return null;
+        throw new NeodgovarajuciProcesorException("Ne postoji laptop sa datim procesorom.");
     }
 }

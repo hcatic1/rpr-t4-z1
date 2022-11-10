@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Laptop implements Serializable {
-    Integer id;
     String brend, model, procesor, grafickaKartica;
     double cijena, velicinaEkrana;
     int ram, hdd, ssd;
 
 
-    public Laptop(Integer id, String brend, String model, String procesor, String grafickaKartica, double cijena, double velicinaEkrana, int ram, int hdd, int ssd) {
-        this.id = id;
+    public Laptop(String brend, String model, String procesor, String grafickaKartica, double cijena, double velicinaEkrana, int ram, int hdd, int ssd) {
         this.brend = brend;
         this.model = model;
         this.procesor = procesor;
@@ -24,14 +22,6 @@ public class Laptop implements Serializable {
     }
 
     public Laptop(){};
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getBrend() {
         return brend;

@@ -11,7 +11,7 @@ public interface LaptopDao {
     public ArrayList<Laptop> napuniListu(ArrayList<Laptop> laptopi);
     public List<Laptop> vratiPodatkeIzDatoteke();
 
-    public Laptop getLaptop(Integer id);
+    public Laptop getLaptop(String procesor);
 
 
 }
