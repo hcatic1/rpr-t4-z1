@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Laptop implements Serializable {
-    String brend, model, procesor, grafickaKartica;
-    double cijena, velicinaEkrana;
-    int ram, hdd, ssd;
+    private String brend, model, procesor, grafickaKartica;
+    private double cijena, velicinaEkrana;
+    private int ram, hdd, ssd;
 
 
     public Laptop(String brend, String model, String procesor, String grafickaKartica, double cijena, double velicinaEkrana, int ram, int hdd, int ssd) {

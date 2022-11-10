@@ -1,49 +1,50 @@
 package ba.unsa.etf.rpr;
 
-import java.io.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LaptopDaoSerializableFile implements LaptopDao{
-    private File file;
-    private ArrayList<Laptop> laptopi;
+public class LaptopDaoXMLfile implements LaptopDao{
+    File file;
+    ArrayList<Laptop> laptopi;
 
-    public LaptopDaoSerializableFile() {
-        this.file = new File(System.getProperty("user.home"), "laptopi.txt");
-        this.laptopi = new ArrayList<Laptop>();
+    public LaptopDaoXMLfile(){
+        this.file = new File("laptopi.xml");
     }
-
     @Override
     public Laptop dodajLaptopUListu(Laptop laptop) throws IOException {
-        laptopi.add(laptop);
+        this.laptopi.add(laptop);
         return laptop;
     }
 
     @Override
     public Laptop dodajLaptopUFile(Laptop laptop) throws IOException {
         dodajLaptopUListu(laptop);
-        ObjectOutputStream izlaz = new ObjectOutputStream(new FileOutputStream(this.file));
-        izlaz.writeObject(this.laptopi);
+        XmlMapper mapper = new XmlMapper();
+        mapper.writeValue(this.file, this.laptopi);
         return laptop;
     }
 
     @Override
     public ArrayList<Laptop> napuniListu(ArrayList<Laptop> laptopi) {
         this.laptopi = new ArrayList<Laptop>(laptopi);
-        return this.laptopi; //ili treba vratiti this.laptopi
+        return this.laptopi;
     }
 
     @Override
     public List<Laptop> vratiPodatkeIzDatoteke() {
         ArrayList<Laptop> newLaptopi = null;
-        try {
-            ObjectInputStream ulaz = new ObjectInputStream(new FileInputStream(this.file));
-            newLaptopi = (ArrayList<Laptop>) ulaz.readObject();
+        try{
+            XmlMapper mapper = new XmlMapper();
+            newLaptopi = mapper.readValue(this.file, new TypeReference<ArrayList<Laptop>>() {});
         }catch(Exception e){
-            //this.laptopi = new ArrayList<Laptop>();
             System.err.println(e.getMessage());
         }
-        return newLaptopi;
+        return null;
     }
 
     @Override

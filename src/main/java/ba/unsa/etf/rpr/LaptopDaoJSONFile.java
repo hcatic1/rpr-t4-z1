@@ -1,35 +1,49 @@
 package ba.unsa.etf.rpr;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LaptopDaoJSONFile implements LaptopDao{
-    File file;
-    ArrayList<Laptop> laptopi;
+    private File file;
+    private ArrayList<Laptop> laptopi;
     public LaptopDaoJSONFile(){
         this.file = new File(System.getProperty("user.home"),"laptopi.json");
-
     }
     @Override
     public Laptop dodajLaptopUListu(Laptop laptop) throws IOException {
-        return null;
+        this.laptopi.add(laptop);
+        return laptop;
     }
 
     @Override
     public Laptop dodajLaptopUFile(Laptop laptop) throws IOException {
-        return null;
+        dodajLaptopUListu(laptop);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(this.file, this.laptopi);
+        return laptop;
     }
 
     @Override
     public ArrayList<Laptop> napuniListu(ArrayList<Laptop> laptopi) {
-        return null;
+        this.laptopi = new ArrayList<Laptop> (laptopi);
+        return this.laptopi;
     }
 
     @Override
     public List<Laptop> vratiPodatkeIzDatoteke() {
-        return null;
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Laptop> newLaptopi = null;
+        try{
+            newLaptopi = mapper.readValue(this.file, new TypeReference<ArrayList<Laptop>>(){});
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return newLaptopi;
     }
 
     @Override
