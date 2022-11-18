@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LaptopDaoJSONFile implements LaptopDao{
     private File file;
     private ArrayList<Laptop> laptopi;
     public LaptopDaoJSONFile(){
+        this.laptopi = new ArrayList<Laptop>();
         this.file = new File(System.getProperty("user.home"),"laptopi.json");
     }
     @Override
@@ -35,7 +35,7 @@ public class LaptopDaoJSONFile implements LaptopDao{
     }
 
     @Override
-    public List<Laptop> vratiPodatkeIzDatoteke() {
+    public ArrayList<Laptop> vratiPodatkeIzDatoteke() {
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<Laptop> newLaptopi = null;
         try{

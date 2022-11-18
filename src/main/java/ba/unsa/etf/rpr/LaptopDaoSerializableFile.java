@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LaptopDaoSerializableFile implements LaptopDao{
     private File file;
@@ -34,7 +33,7 @@ public class LaptopDaoSerializableFile implements LaptopDao{
     }
 
     @Override
-    public List<Laptop> vratiPodatkeIzDatoteke() {
+    public ArrayList<Laptop> vratiPodatkeIzDatoteke() {
         ArrayList<Laptop> newLaptopi = null;
         try {
             ObjectInputStream ulaz = new ObjectInputStream(new FileInputStream(this.file));

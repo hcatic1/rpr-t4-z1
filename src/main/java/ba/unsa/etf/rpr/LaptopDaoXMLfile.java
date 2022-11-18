@@ -6,14 +6,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LaptopDaoXMLfile implements LaptopDao{
     File file;
     ArrayList<Laptop> laptopi;
 
     public LaptopDaoXMLfile(){
-        this.file = new File("laptopi.xml");
+        this.laptopi = new ArrayList<Laptop>();
+        this.file = new File(System.getProperty("user.home"),"laptopi.xml");
     }
     @Override
     public Laptop dodajLaptopUListu(Laptop laptop) throws IOException {
@@ -36,7 +36,7 @@ public class LaptopDaoXMLfile implements LaptopDao{
     }
 
     @Override
-    public List<Laptop> vratiPodatkeIzDatoteke() {
+    public ArrayList<Laptop> vratiPodatkeIzDatoteke() {
         ArrayList<Laptop> newLaptopi = null;
         try{
             XmlMapper mapper = new XmlMapper();
@@ -44,7 +44,7 @@ public class LaptopDaoXMLfile implements LaptopDao{
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
-        return null;
+        return newLaptopi;
     }
 
     @Override
